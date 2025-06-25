@@ -28,7 +28,7 @@ export default function FriendProfilePage({ params }: { params: { id: string } }
   return (
     <div className="flex flex-col h-full bg-card/10">
       <div className="p-4 pt-8 flex items-center sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Link href="/challenges" className="p-2 -ml-2">
+        <Link href="/community" className="p-2 -ml-2">
             <ArrowLeft className="h-6 w-6" />
         </Link>
         <h1 className="text-xl font-bold text-center flex-1 pr-8">Perfil de Amigo</h1>
