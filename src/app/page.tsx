@@ -82,11 +82,9 @@ export default function OnboardingPage() {
                 </FormItem>
               )}
             />
-            <Link href="/home" passHref legacyBehavior>
-                <Button type="submit" className="w-full !mt-8 h-12 rounded-full font-bold text-lg" asChild>
-                    <a>Iniciar Sesión</a>
-                </Button>
-            </Link>
+            <Button asChild className="w-full !mt-8 h-12 rounded-full font-bold text-lg">
+                <Link href="/home">Iniciar Sesión</Link>
+            </Button>
           </form>
         </Form>
         <div className="mt-6 text-center text-sm">
