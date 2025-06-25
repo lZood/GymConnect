@@ -37,15 +37,18 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 text-center">
-                  {user.achievements.map((achievement) => (
-                      <div key={achievement.id} className="flex flex-col items-center gap-1.5">
-                          <div className="p-3 bg-muted rounded-full border-2 border-accent/50">
-                              <achievement.icon className="h-8 w-8 text-accent" />
-                          </div>
-                          <p className="text-xs font-semibold leading-tight">{achievement.title}</p>
-                          <p className="text-xs text-muted-foreground">{new Date(achievement.date).toLocaleDateString('es-ES', { year: '2-digit', month: 'short', day: 'numeric' })}</p>
-                      </div>
-                  ))}
+                  {user.achievements.map((achievement) => {
+                      const Icon = achievement.icon;
+                      return (
+                        <div key={achievement.id} className="flex flex-col items-center gap-1.5">
+                            <div className="p-3 bg-muted rounded-full border-2 border-accent/50">
+                                <Icon className="h-8 w-8 text-accent" />
+                            </div>
+                            <p className="text-xs font-semibold leading-tight">{achievement.title}</p>
+                            <p className="text-xs text-muted-foreground">{new Date(achievement.date).toLocaleDateString('es-ES', { year: '2-digit', month: 'short', day: 'numeric' })}</p>
+                        </div>
+                      )
+                  })}
               </div>
           </CardContent>
         </Card>
@@ -64,15 +67,18 @@ export default function ProfilePage() {
         </Card>
         
         <div className="space-y-2">
-            {menuItems.map((item, index) => (
-                <Link href={item.href} key={index} className="flex items-center justify-between p-4 bg-card rounded-lg transition-colors hover:bg-muted/50 cursor-pointer">
-                    <div className="flex items-center gap-4">
-                        <item.icon className="h-5 w-5 text-primary" />
-                        <span>{item.text}</span>
-                    </div>
-                    <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                </Link>
-            ))}
+            {menuItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                    <Link href={item.href} key={index} className="flex items-center justify-between p-4 bg-card rounded-lg transition-colors hover:bg-muted/50 cursor-pointer">
+                        <div className="flex items-center gap-4">
+                            <Icon className="h-5 w-5 text-primary" />
+                            <span>{item.text}</span>
+                        </div>
+                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                    </Link>
+                )
+            })}
         </div>
 
         <Link href="/" passHref>

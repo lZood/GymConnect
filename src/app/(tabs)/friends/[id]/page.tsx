@@ -28,7 +28,7 @@ export default function FriendProfilePage({ params }: { params: { id: string } }
   return (
     <div className="flex flex-col h-full bg-card/10">
       <div className="p-4 pt-8 flex items-center sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Link href="/home" className="p-2 -ml-2">
+        <Link href="/challenges" className="p-2 -ml-2">
             <ArrowLeft className="h-6 w-6" />
         </Link>
         <h1 className="text-xl font-bold text-center flex-1 pr-8">Perfil de Amigo</h1>
@@ -64,14 +64,17 @@ export default function FriendProfilePage({ params }: { params: { id: string } }
         <div>
             <h3 className="text-xl font-bold mb-3">Logros</h3>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 text-center">
-                  {friend.achievements.map((achievement) => (
-                      <div key={achievement.id} className="flex flex-col items-center gap-2 p-3 bg-background rounded-xl shadow-lg aspect-square justify-center">
-                          <div className="p-2 bg-muted rounded-full">
-                              <achievement.icon className="h-8 w-8 text-accent" />
-                          </div>
-                          <p className="text-xs font-semibold leading-tight">{achievement.title}</p>
-                      </div>
-                  ))}
+                  {friend.achievements.map((achievement) => {
+                      const Icon = achievement.icon;
+                      return (
+                        <div key={achievement.id} className="flex flex-col items-center gap-2 p-3 bg-background rounded-xl shadow-lg aspect-square justify-center">
+                            <div className="p-2 bg-muted rounded-full">
+                                <Icon className="h-8 w-8 text-accent" />
+                            </div>
+                            <p className="text-xs font-semibold leading-tight">{achievement.title}</p>
+                        </div>
+                      )
+                  })}
             </div>
         </div>
 

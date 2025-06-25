@@ -23,25 +23,28 @@ export default function ChallengesPage() {
           </TabsList>
           
           <TabsContent value="challenges" className="flex-1 overflow-y-auto mt-4 space-y-4">
-            {challenges.map((challenge) => (
-              <Card key={challenge.id} className="shadow-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-xl">
-                    <challenge.icon className="h-6 w-6 text-primary" />
-                    {challenge.title}
-                  </CardTitle>
-                  <CardDescription>{challenge.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center mb-2 text-sm">
-                    <span className="font-medium">{challenge.userProgress.toLocaleString()} / {challenge.goal.toLocaleString()} {challenge.metric}</span>
-                    <span className="font-bold text-primary">{Math.round((challenge.userProgress / challenge.goal) * 100)}%</span>
-                  </div>
-                  <Progress value={(challenge.userProgress / challenge.goal) * 100} className="h-3" />
-                  <Button className="w-full mt-4 rounded-full">Unirse al desafío</Button>
-                </CardContent>
-              </Card>
-            ))}
+            {challenges.map((challenge) => {
+              const Icon = challenge.icon;
+              return (
+                <Card key={challenge.id} className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Icon className="h-6 w-6 text-primary" />
+                      {challenge.title}
+                    </CardTitle>
+                    <CardDescription>{challenge.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-between items-center mb-2 text-sm">
+                      <span className="font-medium">{challenge.userProgress.toLocaleString()} / {challenge.goal.toLocaleString()} {challenge.metric}</span>
+                      <span className="font-bold text-primary">{Math.round((challenge.userProgress / challenge.goal) * 100)}%</span>
+                    </div>
+                    <Progress value={(challenge.userProgress / challenge.goal) * 100} className="h-3" />
+                    <Button className="w-full mt-4 rounded-full">Unirse al desafío</Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
             <div className="h-4" />
           </TabsContent>
           
