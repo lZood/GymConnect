@@ -4,7 +4,7 @@ import PageHeader from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Edit, Bell, LogOut, ChevronRight, Star } from 'lucide-react';
+import { Edit, Bell, LogOut, ChevronRight, Star, Trophy } from 'lucide-react';
 import Link from 'next/link';
 
 const menuItems = [
@@ -24,7 +24,31 @@ export default function ProfilePage() {
           </Avatar>
           <h2 className="text-2xl font-bold">{user.name}</h2>
           <p className="text-muted-foreground">{user.email}</p>
+          <div className="flex items-center gap-2 mt-2 rounded-full bg-card px-4 py-2">
+            <Trophy className="h-5 w-5 text-yellow-400" />
+            <span className="font-bold text-lg">{user.gymPoints.toLocaleString()}</span>
+            <span className="text-muted-foreground">GymPoints</span>
         </div>
+        </div>
+
+        <Card className="shadow-lg">
+          <CardHeader>
+              <CardTitle className="text-lg">Muro de la Fama</CardTitle>
+          </CardHeader>
+          <CardContent>
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 text-center">
+                  {user.achievements.map((achievement) => (
+                      <div key={achievement.id} className="flex flex-col items-center gap-1.5">
+                          <div className="p-3 bg-muted rounded-full border-2 border-accent/50">
+                              <achievement.icon className="h-8 w-8 text-accent" />
+                          </div>
+                          <p className="text-xs font-semibold leading-tight">{achievement.title}</p>
+                          <p className="text-xs text-muted-foreground">{new Date(achievement.date).toLocaleDateString('es-ES', { year: '2-digit', month: 'short', day: 'numeric' })}</p>
+                      </div>
+                  ))}
+              </div>
+          </CardContent>
+        </Card>
 
         <Card className="bg-gradient-to-br from-primary/80 to-accent/80 text-primary-foreground shadow-lg">
           <CardHeader>

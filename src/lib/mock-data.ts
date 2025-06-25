@@ -1,3 +1,6 @@
+import type { LucideIcon } from 'lucide-react';
+import { Flame, TrendingUp, Zap, Medal, Award, ShieldCheck } from 'lucide-react';
+
 export const user = {
   name: 'Alex',
   email: 'alex@gymconnect.com',
@@ -7,6 +10,12 @@ export const user = {
     endDate: '2024-12-31',
   },
   streak: 21,
+  gymPoints: 11250,
+  achievements: [
+    { id: '1', title: '1er Mes', icon: Medal, date: '2024-06-01' },
+    { id: '2', title: '25 Check-ins', icon: Award, date: '2024-06-20' },
+    { id: '3', title: 'Racha de 21 días', icon: ShieldCheck, date: '2024-06-24' },
+  ],
 };
 
 export const routine = [
@@ -38,4 +47,55 @@ export const fullProgressData = [
   { date: '2024-05-15', weight: 77.5, bodyFat: 17.8 },
   { date: '2024-06-01', weight: 76, bodyFat: 17.5 },
   { date: '2024-06-15', weight: 76.3, bodyFat: 17.2 },
+];
+
+export const challenges: {
+    id: string;
+    title: string;
+    description: string;
+    icon: LucideIcon;
+    metric: string;
+    goal: number;
+    userProgress: number;
+}[] = [
+  { 
+    id: '1', 
+    title: 'Reto de Sentadillas', 
+    description: 'Completa 500 sentadillas este mes para ganar.',
+    icon: Flame,
+    metric: 'reps',
+    goal: 500,
+    userProgress: 175,
+  },
+  { 
+    id: '2', 
+    title: 'Desafío de Cardio', 
+    description: 'Quema 3000 calorías en la caminadora o elíptica.',
+    icon: Zap,
+    metric: 'calorías',
+    goal: 3000,
+    userProgress: 2100,
+  },
+  { 
+    id: '3', 
+    title: 'Consistencia es Clave', 
+    description: 'Haz check-in 20 días este mes.',
+    icon: TrendingUp,
+    metric: 'días',
+    goal: 20,
+    userProgress: 15,
+  },
+];
+
+export const leaderboard = [
+  { id: 'user-2', rank: 1, name: 'Elena', profilePicture: 'https://placehold.co/100x100.png?text=E', score: 12500 },
+  { id: 'user-3', rank: 2, name: 'Carlos', profilePicture: 'https://placehold.co/100x100.png?text=C', score: 11800 },
+  { id: 'user-1', rank: 3, name: 'Alex', profilePicture: 'https://placehold.co/100x100.png?text=A', score: 11250 },
+  { id: 'user-4', rank: 4, name: 'Sofía', profilePicture: 'https://placehold.co/100x100.png?text=S', score: 10500 },
+  { id: 'user-5', rank: 5, name: 'David', profilePicture: 'https://placehold.co/100x100.png?text=D', score: 9800 },
+];
+
+export const friends = [
+  { id: '1', name: 'Elena', profilePicture: 'https://placehold.co/100x100.png?text=E', streak: 15 },
+  { id: '2', name: 'Carlos', profilePicture: 'https://placehold.co/100x100.png?text=C', streak: 32 },
 ];

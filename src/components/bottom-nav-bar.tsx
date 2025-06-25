@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, ClipboardList, LineChart, User } from "lucide-react";
+import { Home, ClipboardList, LineChart, User, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/home", icon: Home, label: "Inicio" },
   { href: "/routine", icon: ClipboardList, label: "Rutina" },
+  { href: "/challenges", icon: Trophy, label: "Comunidad" },
   { href: "/progress", icon: LineChart, label: "Progreso" },
   { href: "/profile", icon: User, label: "Perfil" },
 ];
