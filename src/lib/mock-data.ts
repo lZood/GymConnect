@@ -1,5 +1,28 @@
+
 import type { LucideIcon } from 'lucide-react';
 import { Flame, TrendingUp, Zap, Medal, Award, ShieldCheck, Dumbbell, Calendar, HeartPulse } from 'lucide-react';
+
+export const allExercises = [
+  { id: 'ex-1', name: 'Press de Banca con Barra', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/SCVCL1pG5p4' },
+  { id: 'ex-2', name: 'Press de Banca Inclinado', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/jPLd__0_yM4' },
+  { id: 'ex-3', name: 'Aperturas con Mancuernas', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/xy_p-w1K2vU' },
+  { id: 'ex-4', name: 'Fondos en Paralelas', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/p_G-gWf__fQ' },
+  
+  { id: 'ex-5', name: 'Dominadas', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/eGo4IyNcAks' },
+  { id: 'ex-6', name: 'Remo con Barra', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/l1hZg8L2A9Y' },
+  { id: 'ex-7', name: 'Jalón al Pecho', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/3fE0L-N_h2I' },
+  
+  { id: 'ex-8', name: 'Sentadillas con Barra', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/X-iI_p_V-38' },
+  { id: 'ex-9', name: 'Peso Muerto', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/op9kVnSso6Q' },
+  { id: 'ex-10', name: 'Prensa de Piernas', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/VYiT3a8I5yI' },
+  { id: 'ex-11', name: 'Zancadas con Mancuernas', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/pewH-X_p6_E' },
+
+  { id: 'ex-12', name: 'Press Militar con Barra', muscleGroup: 'Hombros', videoUrl: 'https://www.youtube.com/embed/2yjwXTZQDDI' },
+  { id: 'ex-13', name: 'Elevaciones Laterales', muscleGroup: 'Hombros', videoUrl: 'https://www.youtube.com/embed/3VcKaXpzqRo' },
+
+  { id: 'ex-14', name: 'Curl de Bíceps con Barra', muscleGroup: 'Brazos', videoUrl: 'https://www.youtube.com/embed/kwG2ZQCzY-k' },
+  { id: 'ex-15', name: 'Press Francés', muscleGroup: 'Brazos', videoUrl: 'https://www.youtube.com/embed/Rlgd-0gJk6g' },
+];
 
 // Main User
 export const user = {
@@ -26,7 +49,31 @@ export const user = {
       friends: 2,
       challenges: 4,
   },
-  joinedDate: 'hace 6 meses'
+  joinedDate: 'hace 6 meses',
+  customRoutines: [
+    {
+      id: 'cr-1',
+      name: 'Lunes de Empuje (Pecho/Tríceps)',
+      description: 'Rutina enfocada en fuerza y volumen para el tren superior.',
+      exercises: [
+        { name: 'Press de Banca con Barra', sets: 4, reps: 8, rest: 60 },
+        { name: 'Press de Banca Inclinado', sets: 3, reps: 10, rest: 60 },
+        { name: 'Fondos en Paralelas', sets: 3, reps: 12, rest: 45 },
+        { name: 'Press Francés', sets: 3, reps: 10, rest: 45 },
+      ]
+    },
+     {
+      id: 'cr-2',
+      name: 'Miércoles de Jalón (Espalda/Bíceps)',
+      description: 'Construye una espalda fuerte y brazos grandes.',
+      exercises: [
+        { name: 'Dominadas', sets: 4, reps: 'AMRAP', rest: 90 },
+        { name: 'Remo con Barra', sets: 4, reps: 8, rest: 60 },
+        { name: 'Jalón al Pecho', sets: 3, reps: 12, rest: 45 },
+        { name: 'Curl de Bíceps con Barra', sets: 4, reps: 10, rest: 45 },
+      ]
+    }
+  ]
 };
 
 // All users database
