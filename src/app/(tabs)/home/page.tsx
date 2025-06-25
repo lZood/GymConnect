@@ -22,7 +22,7 @@ export default function HomePage() {
         title={`¡Hola, ${user.name}!`}
         subtitle="Listo para romperla hoy?"
         action={
-          <Button variant="outline" size="sm" className="rounded-full">
+          <Button variant="outline" size="sm" className="rounded-full" onClick={() => router.push('/check-in')}>
             <CheckCircle2 className="mr-2 h-4 w-4" />
             Check-in
           </Button>
