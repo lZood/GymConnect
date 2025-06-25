@@ -7,19 +7,29 @@ import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Trophy } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 
-export default function FriendProfilePage({ params }: { params: { id: string } }) {
+type Challenge = (typeof challenges)[0] & { endsIn?: number };
+
+export default function FriendProfilePage() {
+  const params = useParams<{ id: string }>();
   const friend = findUserById(params.id);
   
-  // Mock mutual challenges
-  const mutualChallenges = challenges.slice(0, 2).map(c => ({...c, endsIn: Math.floor(Math.random() * 10) + 5 }));
+  const [mutualChallenges, setMutualChallenges] = useState<Challenge[]>([]);
+
+  useEffect(() => {
+    setMutualChallenges(
+      challenges.slice(0, 2).map(c => ({...c, endsIn: Math.floor(Math.random() * 10) + 5 }))
+    );
+  }, []);
 
   if (!friend) {
     return (
       <div className="flex flex-col h-full items-center justify-center p-4">
         <p className="text-xl mb-4">Amigo no encontrado.</p>
-        <Link href="/home" passHref>
-          <Button>Volver al inicio</Button>
+        <Link href="/community">
+          <Button>Volver a Comunidad</Button>
         </Link>
       </div>
     );
