@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { user } from '@/lib/mock-data';
 import PageHeader from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

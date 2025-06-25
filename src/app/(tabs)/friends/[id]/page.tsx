@@ -19,6 +19,7 @@ export default function FriendProfilePage() {
   const [mutualChallenges, setMutualChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
+    // This logic now runs only on the client, preventing hydration errors.
     setMutualChallenges(
       challenges.slice(0, 2).map(c => ({...c, endsIn: Math.floor(Math.random() * 10) + 5 }))
     );

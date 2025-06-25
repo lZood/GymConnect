@@ -145,11 +145,11 @@ export function ProgressPhotosCard() {
       </CardHeader>
       <CardContent className="grid grid-cols-2 gap-4">
         <div className="relative aspect-[3/4] w-full rounded-lg overflow-hidden border">
-           <Image src="https://placehold.co/300x400.png" layout="fill" objectFit="cover" alt="Foto de progreso anterior" data-ai-hint="fitness progress" />
+           <Image src="https://placehold.co/300x400" layout="fill" objectFit="cover" alt="Foto de progreso anterior" data-ai-hint="fitness progress" />
            <p className="absolute bottom-1 left-2 text-xs bg-black/50 text-white px-2 py-1 rounded">01 Ene, 2024</p>
         </div>
          <div className="relative aspect-[3/4] w-full rounded-lg overflow-hidden border">
-           <Image src="https://placehold.co/300x400.png" layout="fill" objectFit="cover" alt="Foto de progreso actual" data-ai-hint="fitness progress" />
+           <Image src="https://placehold.co/300x400" layout="fill" objectFit="cover" alt="Foto de progreso actual" data-ai-hint="fitness progress" />
             <p className="absolute bottom-1 left-2 text-xs bg-black/50 text-white px-2 py-1 rounded">25 Jun, 2024</p>
         </div>
       </CardContent>

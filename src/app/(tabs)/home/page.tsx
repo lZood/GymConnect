@@ -58,7 +58,7 @@ export default function HomePage() {
                   ))}
                   {nextRoutine.exercises.length > 2 && <li className="pl-6">y más...</li>}
                 </ul>
-               <Button onClick={() => router.push(`/workout/${nextRoutine.id}`)} className="w-full">
+               <Button onClick={() => router.push('/routine/today')} className="w-full">
                   ¡Empezar Entrenamiento!
               </Button>
             </CardContent>
