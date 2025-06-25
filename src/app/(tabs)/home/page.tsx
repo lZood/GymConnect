@@ -70,21 +70,23 @@ export default function HomePage() {
               Rachas de Amigos
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-2">
             {friends.map(friend => (
-              <div key={friend.id} className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={friend.profilePicture} alt={friend.name} data-ai-hint="profile picture" />
-                    <AvatarFallback>{friend.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <p className="font-semibold">{friend.name}</p>
+              <Link href={`/friends/${friend.id}`} key={friend.id} className="block -m-2 p-2 rounded-lg hover:bg-muted/50 transition-colors">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={friend.profilePicture} alt={friend.name} data-ai-hint="profile picture" />
+                      <AvatarFallback>{friend.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <p className="font-semibold">{friend.name}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Flame className="h-5 w-5 text-orange-500" />
+                    <span className="font-bold text-lg">{friend.streak}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Flame className="h-5 w-5 text-orange-500" />
-                  <span className="font-bold text-lg">{friend.streak}</span>
-                </div>
-              </div>
+              </Link>
             ))}
           </CardContent>
         </Card>

@@ -1,7 +1,9 @@
 import type { LucideIcon } from 'lucide-react';
-import { Flame, TrendingUp, Zap, Medal, Award, ShieldCheck } from 'lucide-react';
+import { Flame, TrendingUp, Zap, Medal, Award, ShieldCheck, Dumbbell, Calendar, HeartPulse } from 'lucide-react';
 
+// Main User
 export const user = {
+  id: 'user-1',
   name: 'Alex',
   email: 'alex@gymconnect.com',
   profilePicture: 'https://placehold.co/100x100',
@@ -12,11 +14,117 @@ export const user = {
   streak: 21,
   gymPoints: 11250,
   achievements: [
-    { id: '1', title: '1er Mes', icon: Medal, date: '2024-06-01' },
-    { id: '2', title: '25 Check-ins', icon: Award, date: '2024-06-20' },
-    { id: '3', title: 'Racha de 21 días', icon: ShieldCheck, date: '2024-06-24' },
+    { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-06-01' },
+    { id: 'ach-2', title: '25 Check-ins', icon: Award, date: '2024-06-20' },
+    { id: 'ach-3', title: 'Racha de 21 días', icon: ShieldCheck, date: '2024-06-24' },
+    { id: 'ach-4', title: 'Reto de Sentadillas', icon: Dumbbell, date: '2024-05-15' },
+    { id: 'ach-5', title: 'Consistencia', icon: Calendar, date: '2024-04-30' },
+    { id: 'ach-6', title: 'Rey del Cardio', icon: HeartPulse, date: '2024-04-10' },
   ],
+  stats: {
+      workouts: 45,
+      friends: 2,
+      challenges: 4,
+  },
+  joinedDate: 'hace 6 meses'
 };
+
+// All users database
+const allUsers = [
+    { 
+        id: 'user-2',
+        name: 'Elena', 
+        profilePicture: 'https://placehold.co/100x100.png',
+        streak: 15, 
+        score: 12500,
+        joinedDate: 'hace 4 meses',
+        achievements: [
+            { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-04-01' },
+            { id: 'ach-7', title: 'Reto de Sentadillas', icon: Dumbbell, date: '2024-05-15' },
+            { id: 'ach-8', title: 'Reina del Cardio', icon: HeartPulse, date: '2024-05-20' },
+        ],
+        stats: { workouts: 38, friends: 5, challenges: 3 },
+    },
+    { 
+        id: 'user-3', 
+        name: 'Carlos', 
+        profilePicture: 'https://placehold.co/100x100.png', 
+        streak: 32,
+        score: 11800,
+        joinedDate: 'hace 1 año',
+        achievements: [
+            { id: 'ach-9', title: 'Miembro por un año', icon: Medal, date: '2024-06-01' },
+            { id: 'ach-10', title: 'Racha de 30 días', icon: ShieldCheck, date: '2024-06-22' },
+        ],
+        stats: { workouts: 150, friends: 8, challenges: 7 },
+    },
+    { 
+        id: 'user-4', 
+        name: 'Sofía', 
+        profilePicture: 'https://placehold.co/100x100.png', 
+        streak: 5,
+        score: 10500,
+        joinedDate: 'hace 2 meses',
+        achievements: [
+            { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-06-15' },
+        ],
+        stats: { workouts: 12, friends: 3, challenges: 2 },
+    },
+    { 
+        id: 'user-5', 
+        name: 'David', 
+        profilePicture: 'https://placehold.co/100x100.png', 
+        streak: 10,
+        score: 9800,
+        joinedDate: 'hace 3 meses',
+        achievements: [
+            { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-05-01' },
+            { id: 'ach-11', title: '10 Check-ins', icon: Award, date: '2024-05-25' },
+        ],
+        stats: { workouts: 25, friends: 4, challenges: 1 },
+    },
+];
+
+// Define friends of the main user
+export const friends = allUsers.filter(u => ['user-2', 'user-3'].includes(u.id));
+
+// Raw leaderboard data
+const rawLeaderboard = [
+  { rank: 1, ...allUsers.find(u => u.id === 'user-2')! },
+  { rank: 2, ...allUsers.find(u => u.id === 'user-3')! },
+  { rank: 3, id: user.id, name: user.name, profilePicture: user.profilePicture, score: user.gymPoints }, // Add current user to leaderboard
+  { rank: 4, ...allUsers.find(u => u.id === 'user-4')! },
+  { rank: 5, ...allUsers.find(u => u.id === 'user-5')! },
+];
+
+// Simplified leaderboard for display, without nested objects
+export const leaderboard = rawLeaderboard.map(u => ({
+    id: u.id,
+    rank: u.rank,
+    name: u.name,
+    profilePicture: u.profilePicture,
+    score: u.score
+}));
+
+// Function to find any user by ID
+export const findUserById = (id: string) => {
+    if (id === user.id) return user;
+    const friend = allUsers.find(u => u.id === id);
+    if(friend) return friend;
+
+    // Fallback for users that might only exist in the leaderboard mock
+    const leaderboardUser = leaderboard.find(u => u.id === id);
+    if(leaderboardUser) {
+        return {
+            ...leaderboardUser,
+            joinedDate: 'hace 2 meses',
+            achievements: user.achievements.slice(0, 3),
+            stats: { workouts: 12, friends: 3, challenges: 2 },
+        }
+    }
+    return undefined;
+}
+
 
 export const routine = [
   { id: '1', name: 'Press de Banca', sets: 4, reps: 8, completed: true, videoUrl: 'https://www.youtube.com/embed/SCVCL1pG5p4', description: 'Acuéstate en un banco plano. Agarra la barra con las manos un poco más anchas que el ancho de los hombros. Baja la barra hasta el pecho, y luego empújala hacia arriba hasta la posición inicial.' },
@@ -59,7 +167,7 @@ export const challenges: {
     userProgress: number;
 }[] = [
   { 
-    id: '1', 
+    id: 'ch-1', 
     title: 'Reto de Sentadillas', 
     description: 'Completa 500 sentadillas este mes para ganar.',
     icon: Flame,
@@ -68,7 +176,7 @@ export const challenges: {
     userProgress: 175,
   },
   { 
-    id: '2', 
+    id: 'ch-2', 
     title: 'Desafío de Cardio', 
     description: 'Quema 3000 calorías en la caminadora o elíptica.',
     icon: Zap,
@@ -77,7 +185,7 @@ export const challenges: {
     userProgress: 2100,
   },
   { 
-    id: '3', 
+    id: 'ch-3', 
     title: 'Consistencia es Clave', 
     description: 'Haz check-in 20 días este mes.',
     icon: TrendingUp,
@@ -85,17 +193,4 @@ export const challenges: {
     goal: 20,
     userProgress: 15,
   },
-];
-
-export const leaderboard = [
-  { id: 'user-2', rank: 1, name: 'Elena', profilePicture: 'https://placehold.co/100x100.png?text=E', score: 12500 },
-  { id: 'user-3', rank: 2, name: 'Carlos', profilePicture: 'https://placehold.co/100x100.png?text=C', score: 11800 },
-  { id: 'user-1', rank: 3, name: 'Alex', profilePicture: 'https://placehold.co/100x100.png?text=A', score: 11250 },
-  { id: 'user-4', rank: 4, name: 'Sofía', profilePicture: 'https://placehold.co/100x100.png?text=S', score: 10500 },
-  { id: 'user-5', rank: 5, name: 'David', profilePicture: 'https://placehold.co/100x100.png?text=D', score: 9800 },
-];
-
-export const friends = [
-  { id: '1', name: 'Elena', profilePicture: 'https://placehold.co/100x100.png?text=E', streak: 15 },
-  { id: '2', name: 'Carlos', profilePicture: 'https://placehold.co/100x100.png?text=C', streak: 32 },
 ];
