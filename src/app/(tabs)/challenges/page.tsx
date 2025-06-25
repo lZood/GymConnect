@@ -1,3 +1,4 @@
+
 import PageHeader from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -44,7 +45,7 @@ export default function ChallengesPage() {
           </TabsContent>
           
           <TabsContent value="leaderboard" className="flex-1 overflow-y-auto mt-4 space-y-2">
-            {leaderboard.sort((a,b) => a.rank - b.rank).map((user) => (
+            {[...leaderboard].sort((a,b) => a.rank - b.rank).map((user) => (
               <Link href={`/friends/${user.id}`} key={user.id} className="block">
                 <div className="flex items-center gap-4 p-3 bg-card rounded-lg shadow-sm transition-colors hover:bg-muted/50 cursor-pointer">
                   <span className="font-bold text-xl w-8 text-center text-muted-foreground">{user.rank}.</span>
