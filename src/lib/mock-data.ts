@@ -40,6 +40,10 @@ export const user = {
     goal: 4,
     completed: 2,
   },
+  consistency: {
+    planned: 16,
+    completed: 14,
+  },
   lastWorkoutSummary: {
     name: 'Lunes de Empuje',
     duration: '55 min',
@@ -255,3 +259,31 @@ export const challenges: {
     userProgress: 15,
   },
 ];
+
+
+export const muscleGroupVolume = [
+  { month: 'Ene', Pecho: 12000, Espalda: 11000, Piernas: 15000, Hombros: 6000, Brazos: 5000 },
+  { month: 'Feb', Pecho: 12500, Espalda: 11500, Piernas: 15500, Hombros: 6200, Brazos: 5200 },
+  { month: 'Mar', Pecho: 13000, Espalda: 12000, Piernas: 16000, Hombros: 6500, Brazos: 5500 },
+  { month: 'Abr', Pecho: 13500, Espalda: 12500, Piernas: 16500, Hombros: 6800, Brazos: 5800 },
+  { month: 'May', Pecho: 14000, Espalda: 13000, Piernas: 17000, Hombros: 7000, Brazos: 6000 },
+  { month: 'Jun', Pecho: 14500, Espalda: 13500, Piernas: 17500, Hombros: 7200, Brazos: 6200 },
+];
+
+export const personalRecords = [
+    { date: '2024-06-18', exercise: 'Press de Banca', value: '85kg' },
+    { date: '2024-06-12', exercise: 'Sentadillas', value: '115kg' },
+    { date: '2024-05-29', exercise: 'Peso Muerto', value: '135kg' },
+    { date: '2024-06-18', exercise: 'Dominadas', value: '15 reps' },
+];
+
+export const latestMeasurements = {
+    date: '2024-06-20',
+    measurements: {
+        pecho: 105,
+        cintura: 82,
+        caderas: 98,
+        biceps: 38,
+        muslo: 60,
+    }
+}

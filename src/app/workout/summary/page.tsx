@@ -3,7 +3,8 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Award, BarChart, Trophy } from 'lucide-react';
+import { Award, BarChart, Trophy, Smile, Meh, Frown } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 export default function WorkoutSummaryPage() {
     const router = useRouter();
@@ -30,6 +31,15 @@ export default function WorkoutSummaryPage() {
                     <span className="font-bold">1 PR</span>
                 </div>
             </div>
+
+            <Card className="w-full max-w-sm p-4 mb-8 text-center bg-card/50">
+                <p className="font-semibold mb-3">¿Cómo te sentiste hoy?</p>
+                <div className="flex justify-around">
+                    <Button variant="ghost" size="icon" className="h-16 w-16 rounded-full"><Frown className="h-8 w-8 text-red-500"/></Button>
+                    <Button variant="ghost" size="icon" className="h-16 w-16 rounded-full"><Meh className="h-8 w-8 text-yellow-500"/></Button>
+                    <Button variant="ghost" size="icon" className="h-16 w-16 rounded-full"><Smile className="h-8 w-8 text-green-500"/></Button>
+                </div>
+            </Card>
 
             <div className="w-full max-w-sm space-y-3">
                 <Button className="w-full h-12 text-lg bg-accent hover:bg-accent/90 text-accent-foreground">
