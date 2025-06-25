@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { X, Check } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 type Routine = typeof user.customRoutines[0];
 type Exercise = Routine['exercises'][0];
@@ -27,18 +28,18 @@ function ActiveExerciseView({
     currentSet: number,
     onCompleteSet: (log: { weight: number, reps: number }) => void
 }) {
-    const [weight, setWeight] = useState(0);
-    const [reps, setReps] = useState(exercise.reps);
-
     const exerciseDetails = allExercises.find(e => e.name === exercise.name);
+    const [weight, setWeight] = useState(exerciseDetails?.lastWeight || 0);
+    const [reps, setReps] = useState(exercise.reps);
 
     return (
         <div className="flex flex-col h-full text-white p-6 justify-between">
             <div>
                 <h1 className="text-4xl font-bold">{exercise.name}</h1>
                 <p className="text-muted-foreground text-lg">{exercise.sets} Series x {exercise.reps} Reps</p>
+                
                 {exerciseDetails?.videoUrl && 
-                    <div className="aspect-video w-full rounded-lg overflow-hidden border mt-4">
+                    <div className="aspect-video w-full rounded-lg overflow-hidden border mt-4 mb-4">
                         <iframe
                             className="w-full h-full"
                             src={exerciseDetails.videoUrl}
@@ -48,6 +49,14 @@ function ActiveExerciseView({
                         ></iframe>
                     </div>
                 }
+
+                 {exerciseDetails && (exerciseDetails.lastWeight > 0 || exerciseDetails.personalRecord > 0) && (
+                    <Card className="text-center bg-card/50 p-2">
+                        <span className="text-sm text-muted-foreground">
+                            Último: <span className="font-bold text-foreground">{exerciseDetails.lastWeight}kg</span> | Récord: <span className="font-bold text-accent">{exerciseDetails.personalRecord}kg</span>
+                        </span>
+                    </Card>
+                )}
             </div>
 
             <div className="text-center my-8">

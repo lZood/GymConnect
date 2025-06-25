@@ -3,25 +3,25 @@ import type { LucideIcon } from 'lucide-react';
 import { Flame, TrendingUp, Zap, Medal, Award, ShieldCheck, Dumbbell, Calendar, HeartPulse } from 'lucide-react';
 
 export const allExercises = [
-  { id: 'ex-1', name: 'Press de Banca con Barra', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/SCVCL1pG5p4' },
-  { id: 'ex-2', name: 'Press de Banca Inclinado', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/jPLd__0_yM4' },
-  { id: 'ex-3', name: 'Aperturas con Mancuernas', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/xy_p-w1K2vU' },
-  { id: 'ex-4', name: 'Fondos en Paralelas', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/p_G-gWf__fQ' },
+  { id: 'ex-1', name: 'Press de Banca con Barra', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/SCVCL1pG5p4', lastWeight: 75, personalRecord: 80 },
+  { id: 'ex-2', name: 'Press de Banca Inclinado', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/jPLd__0_yM4', lastWeight: 50, personalRecord: 55 },
+  { id: 'ex-3', name: 'Aperturas con Mancuernas', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/xy_p-w1K2vU', lastWeight: 15, personalRecord: 18 },
+  { id: 'ex-4', name: 'Fondos en Paralelas', muscleGroup: 'Pecho', videoUrl: 'https://www.youtube.com/embed/p_G-gWf__fQ', lastWeight: 10, personalRecord: 15 },
   
-  { id: 'ex-5', name: 'Dominadas', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/eGo4IyNcAks' },
-  { id: 'ex-6', name: 'Remo con Barra', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/l1hZg8L2A9Y' },
-  { id: 'ex-7', name: 'Jalón al Pecho', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/3fE0L-N_h2I' },
+  { id: 'ex-5', name: 'Dominadas', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/eGo4IyNcAks', lastWeight: 0, personalRecord: 12 },
+  { id: 'ex-6', name: 'Remo con Barra', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/l1hZg8L2A9Y', lastWeight: 60, personalRecord: 70 },
+  { id: 'ex-7', name: 'Jalón al Pecho', muscleGroup: 'Espalda', videoUrl: 'https://www.youtube.com/embed/3fE0L-N_h2I', lastWeight: 55, personalRecord: 60 },
   
-  { id: 'ex-8', name: 'Sentadillas con Barra', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/X-iI_p_V-38' },
-  { id: 'ex-9', name: 'Peso Muerto', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/op9kVnSso6Q' },
-  { id: 'ex-10', name: 'Prensa de Piernas', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/VYiT3a8I5yI' },
-  { id: 'ex-11', name: 'Zancadas con Mancuernas', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/pewH-X_p6_E' },
+  { id: 'ex-8', name: 'Sentadillas con Barra', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/X-iI_p_V-38', lastWeight: 100, personalRecord: 110 },
+  { id: 'ex-9', name: 'Peso Muerto', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/op9kVnSso6Q', lastWeight: 120, personalRecord: 130 },
+  { id: 'ex-10', name: 'Prensa de Piernas', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/VYiT3a8I5yI', lastWeight: 180, personalRecord: 200 },
+  { id: 'ex-11', name: 'Zancadas con Mancuernas', muscleGroup: 'Piernas', videoUrl: 'https://www.youtube.com/embed/pewH-X_p6_E', lastWeight: 20, personalRecord: 25 },
 
-  { id: 'ex-12', name: 'Press Militar con Barra', muscleGroup: 'Hombros', videoUrl: 'https://www.youtube.com/embed/2yjwXTZQDDI' },
-  { id: 'ex-13', name: 'Elevaciones Laterales', muscleGroup: 'Hombros', videoUrl: 'https://www.youtube.com/embed/3VcKaXpzqRo' },
+  { id: 'ex-12', name: 'Press Militar con Barra', muscleGroup: 'Hombros', videoUrl: 'https://www.youtube.com/embed/2yjwXTZQDDI', lastWeight: 40, personalRecord: 45 },
+  { id: 'ex-13', name: 'Elevaciones Laterales', muscleGroup: 'Hombros', videoUrl: 'https://www.youtube.com/embed/3VcKaXpzqRo', lastWeight: 10, personalRecord: 12 },
 
-  { id: 'ex-14', name: 'Curl de Bíceps con Barra', muscleGroup: 'Brazos', videoUrl: 'https://www.youtube.com/embed/kwG2ZQCzY-k' },
-  { id: 'ex-15', name: 'Press Francés', muscleGroup: 'Brazos', videoUrl: 'https://www.youtube.com/embed/Rlgd-0gJk6g' },
+  { id: 'ex-14', name: 'Curl de Bíceps con Barra', muscleGroup: 'Brazos', videoUrl: 'https://www.youtube.com/embed/kwG2ZQCzY-k', lastWeight: 30, personalRecord: 35 },
+  { id: 'ex-15', name: 'Press Francés', muscleGroup: 'Brazos', videoUrl: 'https://www.youtube.com/embed/Rlgd-0gJk6g', lastWeight: 25, personalRecord: 30 },
 ];
 
 // Main User
@@ -80,7 +80,7 @@ export const user = {
       name: 'Miércoles de Jalón (Espalda/Bíceps)',
       description: 'Construye una espalda fuerte y brazos grandes.',
       exercises: [
-        { name: 'Dominadas', sets: 4, reps: 'AMRAP', rest: 90 },
+        { name: 'Dominadas', sets: 4, reps: 8, rest: 90 }, // AMRAP can be tricky, using a number for simplicity
         { name: 'Remo con Barra', sets: 4, reps: 8, rest: 60 },
         { name: 'Jalón al Pecho', sets: 3, reps: 12, rest: 45 },
         { name: 'Curl de Bíceps con Barra', sets: 4, reps: 10, rest: 45 },
@@ -167,7 +167,8 @@ export const leaderboard = rawLeaderboard.map(u => ({
 }));
 
 // Function to find any user by ID
-export const findUserById = (id: string) => {
+export const findUserById = (id: string | undefined) => {
+    if (!id) return undefined;
     if (id === user.id) return user;
     const friend = allUsers.find(u => u.id === id);
     if(friend) return friend;
@@ -190,7 +191,7 @@ export const routine = [
   { id: '1', name: 'Press de Banca', sets: 4, reps: 8, completed: true, videoUrl: 'https://www.youtube.com/embed/SCVCL1pG5p4', description: 'Acuéstate en un banco plano. Agarra la barra con las manos un poco más anchas que el ancho de los hombros. Baja la barra hasta el pecho, y luego empújala hacia arriba hasta la posición inicial.' },
   { id: '2', name: 'Sentadillas con Barra', sets: 3, reps: 10, completed: true, videoUrl: 'https://www.youtube.com/embed/X-iI_p_V-38', description: 'Coloca la barra sobre tus trapecios. Mantén la espalda recta, el pecho hacia afuera y las rodillas alineadas con los pies. Baja como si te fueras a sentar en una silla, hasta que tus muslos estén paralelos al suelo.' },
   { id: '3', name: 'Peso Muerto', sets: 3, reps: 6, completed: false, videoUrl: 'https://www.youtube.com/embed/op9kVnSso6Q', description: 'Párate con los pies al ancho de las caderas. Agarra la barra con las manos justo por fuera de las rodillas. Mantén la espalda recta y levanta la barra extendiendo las caderas y las rodillas.' },
-  { id: '4', name: 'Dominadas', sets: 4, reps: 'AMRAP', completed: false, videoUrl: 'https://www.youtube.com/embed/eGo4IyNcAks', description: 'Agarra la barra con las palmas hacia afuera. Cuélgate con los brazos completamente extendidos. Sube tu cuerpo hasta que tu barbilla esté por encima de la barra.' },
+  { id: '4', name: 'Dominadas', sets: 4, reps: 8, completed: false, videoUrl: 'https://www.youtube.com/embed/eGo4IyNcAks', description: 'Agarra la barra con las palmas hacia afuera. Cuélgate con los brazos completamente extendidos. Sube tu cuerpo hasta que tu barbilla esté por encima de la barra.' },
 ];
 
 export const weightProgress = [
