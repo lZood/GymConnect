@@ -9,9 +9,9 @@ export default function RoutinePage() {
   return (
     <div className="flex flex-col h-full">
       <PageHeader title="Rutina de Hoy" subtitle="Día de Pecho y Tríceps" />
-      <div className="flex-1 overflow-y-auto px-4 space-y-3">
+      <div className="flex-1 overflow-y-auto px-4 space-y-4">
         {routine.map((exercise) => (
-          <Link href={`/routine/${exercise.id}`} key={exercise.id} passHref>
+          <Link href={`/routine/${exercise.id}`} key={exercise.id}>
             <Card className="shadow-lg transition-transform active:scale-95 cursor-pointer">
               <CardContent className="p-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
