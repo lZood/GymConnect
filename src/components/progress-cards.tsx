@@ -6,8 +6,77 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Calendar } from '@/components/ui/calendar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
-import { Lightbulb, Medal, Flame, TrendingUp, Ruler, Camera } from 'lucide-react';
+import { Lightbulb, Medal, Flame, TrendingUp, Ruler, Camera, PlusCircle } from 'lucide-react';
 import type { DayPicker } from 'react-day-picker';
+import { Button } from './ui/button';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { useToast } from '@/hooks/use-toast';
+
+
+function TakeMeasurementsSheet({
+  initialMeasurements
+}: {
+  initialMeasurements: Record<string, number>;
+}) {
+  const { toast } = useToast();
+  const [measurements, setMeasurements] = useState(initialMeasurements);
+
+  const handleSave = () => {
+    toast({
+      title: "Medidas Guardadas",
+      description: "Tu progreso ha sido actualizado con éxito.",
+    });
+  };
+
+  const handleChange = (key: string, value: string) => {
+    const numValue = value === '' ? 0 : parseInt(value, 10);
+    if (!isNaN(numValue)) {
+      setMeasurements((prev) => ({ ...prev, [key]: numValue }));
+    }
+  };
+  
+  const measurementLabels: Record<string, string> = {
+    altura: 'Altura (cm)',
+    pecho: 'Pecho (cm)',
+    cintura: 'Cintura (cm)',
+    caderas: 'Caderas (cm)',
+    biceps: 'Bíceps (cm)',
+    muslo: 'Muslo (cm)',
+  }
+
+  return (
+    <>
+      <SheetHeader className="p-4 pb-2 text-left">
+        <SheetTitle>Registrar Nuevas Medidas</SheetTitle>
+        <SheetDescription>
+          Actualiza tus medidas corporales para un seguimiento preciso.
+        </SheetDescription>
+      </SheetHeader>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {Object.keys(measurementLabels).map((key) => (
+          <div key={key}>
+            <Label htmlFor={`measurement-${key}`}>{measurementLabels[key]}</Label>
+            <Input
+              id={`measurement-${key}`}
+              type="number"
+              value={measurements[key] || ''}
+              onChange={(e) => handleChange(key, e.target.value)}
+              placeholder={`Tu ${key} en cm`}
+            />
+          </div>
+        ))}
+      </div>
+      <SheetFooter className="p-4 border-t">
+        <SheetClose asChild>
+            <Button onClick={handleSave} className="w-full">Guardar</Button>
+        </SheetClose>
+      </SheetFooter>
+    </>
+  );
+}
+
 
 type PRCalendarCardProps = {
   records: { date: string; exercise: string; value: string }[];
@@ -101,23 +170,46 @@ type BodyMeasurementsCardProps = {
   measurements: Record<string, number>;
 }
 export function BodyMeasurementsCard({ measurements }: BodyMeasurementsCardProps) {
+    const measurementLabels: Record<string, string> = {
+      altura: 'Altura',
+      pecho: 'Pecho',
+      cintura: 'Cintura',
+      caderas: 'Caderas',
+      biceps: 'Bíceps',
+      muslo: 'Muslo',
+    }
+    const displayOrder = ['altura', 'pecho', 'cintura', 'caderas', 'biceps', 'muslo'];
+    
     return (
-        <Card className="shadow-lg">
-             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Ruler/> Medidas Corporales</CardTitle>
-                <CardDescription>Último registro: {new Date().toLocaleDateString('es-ES')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="grid grid-cols-3 gap-x-4 gap-y-2 text-center">
-                    {Object.entries(measurements).map(([key, value]) => (
-                        <div key={key} className="bg-muted/50 p-2 rounded-md">
-                            <p className="font-bold text-lg">{value}<span className="text-sm">cm</span></p>
-                            <p className="text-xs capitalize text-muted-foreground">{key}</p>
-                        </div>
-                    ))}
-                </div>
-            </CardContent>
-        </Card>
+        <Sheet>
+            <Card className="shadow-lg">
+                 <CardHeader className="flex-row items-start justify-between pb-4">
+                    <div>
+                        <CardTitle className="flex items-center gap-2"><Ruler/> Medidas Corporales</CardTitle>
+                        <CardDescription>Último registro: {new Date().toLocaleDateString('es-ES')}</CardDescription>
+                    </div>
+                     <SheetTrigger asChild>
+                        <Button variant="secondary" size="sm">
+                            <PlusCircle className="mr-2 h-4 w-4" />
+                            Añadir
+                        </Button>
+                     </SheetTrigger>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-3 gap-x-4 gap-y-2 text-center">
+                        {displayOrder.map((key) => measurements[key] !== undefined && (
+                            <div key={key} className="bg-muted/50 p-2 rounded-md">
+                                <p className="font-bold text-lg">{measurements[key]}<span className="text-sm text-muted-foreground">&nbsp;cm</span></p>
+                                <p className="text-xs capitalize text-muted-foreground">{measurementLabels[key]}</p>
+                            </div>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
+            <SheetContent side="bottom" className="h-[85%] flex flex-col p-0">
+                <TakeMeasurementsSheet initialMeasurements={measurements} />
+            </SheetContent>
+        </Sheet>
     )
 }
 

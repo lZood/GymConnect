@@ -294,6 +294,7 @@ export const personalRecords = [
 export const latestMeasurements = {
     date: '2024-06-20',
     measurements: {
+        altura: 175,
         pecho: 105,
         cintura: 82,
         caderas: 98,
