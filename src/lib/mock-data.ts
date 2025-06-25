@@ -96,7 +96,7 @@ export const user = {
 };
 
 // All users database
-const allUsers = [
+export const allUsers = [
     { 
         id: 'user-2',
         name: 'Elena', 

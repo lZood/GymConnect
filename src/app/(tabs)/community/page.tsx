@@ -1,15 +1,85 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { challenges, leaderboard, friends, user } from '@/lib/mock-data';
-import { Trophy, Flame, ChevronRight, Clock, ArrowUpCircle, ArrowDownCircle, MinusCircle } from 'lucide-react';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { challenges, leaderboard, friends, user, allUsers } from '@/lib/mock-data';
+import { Trophy, Flame, ChevronRight, Clock, ArrowUpCircle, ArrowDownCircle, MinusCircle, UserPlus } from 'lucide-react';
 import PageHeader from '@/components/page-header';
 import { cn } from '@/lib/utils';
+
+
+function AddFriendSheetContent() {
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  // Exclude current user and existing friends from search results
+  const potentialFriends = allUsers.filter(
+    u => u.id !== user.id && !friends.some(f => f.id === u.id)
+  );
+
+  const filteredUsers = searchTerm 
+    ? potentialFriends.filter(u => 
+        u.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : potentialFriends;
+  
+  const { toast } = useToast();
+
+  const handleAddFriend = (name: string) => {
+    toast({
+      title: "Solicitud Enviada",
+      description: `Se ha enviado una solicitud de amistad a ${name}.`,
+    });
+  };
+
+  return (
+    <>
+      <SheetHeader className="p-4 pb-0 text-left">
+        <SheetTitle>Buscar Amigos</SheetTitle>
+        <SheetDescription>
+          Busca a tus amigos por su nombre para añadirlos a tu lista.
+        </SheetDescription>
+      </SheetHeader>
+      <div className="p-4 space-y-4 flex-1 flex flex-col min-h-0">
+        <Input 
+          placeholder="Buscar por nombre..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+          {filteredUsers.map(u => (
+            <div key={u.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-lg">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={u.profilePicture} alt={u.name} data-ai-hint="profile picture" />
+                  <AvatarFallback>{u.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-semibold">{u.name}</p>
+                  <p className="text-xs text-muted-foreground">{u.league}</p>
+                </div>
+              </div>
+              <Button size="sm" onClick={() => handleAddFriend(u.name)}>
+                <UserPlus className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+          {filteredUsers.length === 0 && (
+            <p className="text-center text-muted-foreground pt-8">No se encontraron usuarios.</p>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
 
 export default function CommunityPage() {
   const currentUser = user;
@@ -102,6 +172,18 @@ export default function CommunityPage() {
           </TabsContent>
 
           <TabsContent value="friends" className="flex-1 overflow-y-auto mt-4 space-y-2">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button className="w-full mb-2">
+                  <UserPlus className="mr-2" />
+                  Añadir Amigos
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[85%] flex flex-col p-0">
+                <AddFriendSheetContent />
+              </SheetContent>
+            </Sheet>
+            
             {friends.map((friend) => (
               <Link href={`/friends/${friend.id}`} key={friend.id} className="block">
                 <div className="flex items-center gap-4 p-3 bg-card rounded-lg shadow-sm transition-colors hover:bg-muted/50 cursor-pointer">
