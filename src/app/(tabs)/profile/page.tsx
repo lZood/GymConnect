@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { user } from '@/lib/mock-data';
 import PageHeader from '@/components/page-header';
