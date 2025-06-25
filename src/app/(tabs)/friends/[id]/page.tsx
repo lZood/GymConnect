@@ -2,7 +2,7 @@
 'use client'
 
 import Link from 'next/link';
-import { findUserById, challenges } from '@/lib/mock-data';
+import { findUserById, challenges, user as currentUser } from '@/lib/mock-data';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -52,9 +52,14 @@ export default function FriendProfilePage() {
             <AvatarFallback>{friend.name.charAt(0)}</AvatarFallback>
           </Avatar>
           <h2 className="text-3xl font-bold">{friend.name}</h2>
-          <p className="text-muted-foreground">Entusiasta del Fitness</p>
+          <div className="flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-sm font-semibold">
+            <Trophy className="h-4 w-4 text-yellow-400" />
+            <span>{friend.league}</span>
+          </div>
           <p className="text-sm text-muted-foreground">Se unió {friend.joinedDate}</p>
-          <Button className="w-full max-w-xs rounded-full mt-2">Seguir</Button>
+          {friend.id !== currentUser.id && (
+            <Button className="w-full max-w-xs rounded-full mt-2">Seguir</Button>
+          )}
         </div>
         
         <div className="grid grid-cols-3 gap-4 text-center">

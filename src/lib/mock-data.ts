@@ -29,6 +29,7 @@ export const user = {
   name: 'Alex',
   email: 'alex@gymconnect.com',
   profilePicture: 'https://placehold.co/100x100.png',
+  league: 'Liga de Oro',
   subscription: {
     plan: 'Premium',
     endDate: '2024-12-31',
@@ -102,6 +103,7 @@ const allUsers = [
         profilePicture: 'https://placehold.co/100x100.png',
         streak: 15, 
         score: 12500,
+        league: 'Liga de Oro',
         joinedDate: 'hace 4 meses',
         achievements: [
             { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-04-01' },
@@ -116,6 +118,7 @@ const allUsers = [
         profilePicture: 'https://placehold.co/100x100.png', 
         streak: 32,
         score: 11800,
+        league: 'Liga de Oro',
         joinedDate: 'hace 1 año',
         achievements: [
             { id: 'ach-9', title: 'Miembro por un año', icon: Medal, date: '2024-06-01' },
@@ -129,6 +132,7 @@ const allUsers = [
         profilePicture: 'https://placehold.co/100x100.png', 
         streak: 5,
         score: 10500,
+        league: 'Liga de Oro',
         joinedDate: 'hace 2 meses',
         achievements: [
             { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-06-15' },
@@ -141,6 +145,7 @@ const allUsers = [
         profilePicture: 'https://placehold.co/100x100.png', 
         streak: 10,
         score: 9800,
+        league: 'Liga de Oro',
         joinedDate: 'hace 3 meses',
         achievements: [
             { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-05-01' },
@@ -157,7 +162,7 @@ export const friends = allUsers.filter(u => ['user-2', 'user-3'].includes(u.id))
 const rawLeaderboard = [
   { rank: 1, ...allUsers.find(u => u.id === 'user-2')! },
   { rank: 2, ...allUsers.find(u => u.id === 'user-3')! },
-  { rank: 3, id: user.id, name: user.name, profilePicture: user.profilePicture, score: user.gymPoints }, // Add current user to leaderboard
+  { rank: 3, id: user.id, name: user.name, profilePicture: user.profilePicture, score: user.gymPoints, league: user.league },
   { rank: 4, ...allUsers.find(u => u.id === 'user-4')! },
   { rank: 5, ...allUsers.find(u => u.id === 'user-5')! },
 ];
@@ -168,11 +173,12 @@ export const leaderboard = rawLeaderboard.map(u => ({
     rank: u.rank,
     name: u.name,
     profilePicture: u.profilePicture,
-    score: u.score
+    score: u.score,
+    league: u.league,
 }));
 
 // Function to find any user by ID
-export const findUserById = (id: string | undefined) => {
+export const findUserById = (id: string | undefined): (typeof user | typeof allUsers[0] | undefined) => {
     if (!id) return undefined;
     if (id === user.id) return user;
     const friend = allUsers.find(u => u.id === id);
@@ -184,9 +190,20 @@ export const findUserById = (id: string | undefined) => {
         const fullUser = allUsers.find(u => u.id === id);
         return {
             ...leaderboardUser,
+            league: fullUser?.league || user.league,
             joinedDate: fullUser?.joinedDate || 'hace 2 meses',
             achievements: fullUser?.achievements || user.achievements.slice(0, 3),
             stats: fullUser?.stats || { workouts: 12, friends: 3, challenges: 2 },
+            // Add other missing properties from `user` type if needed
+            email: '',
+            subscription: user.subscription,
+            weeklyProgress: user.weeklyProgress,
+            consistency: user.consistency,
+            lastWorkoutSummary: user.lastWorkoutSummary,
+            newPr: user.newPr,
+            customRoutines: [],
+            streak: leaderboardUser.score / 1000,
+            gymPoints: leaderboardUser.score,
         }
     }
     return undefined;
