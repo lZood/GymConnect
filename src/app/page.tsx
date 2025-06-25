@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -90,7 +91,7 @@ export default function OnboardingPage() {
         <div className="mt-6 text-center text-sm">
           <p className="text-muted-foreground">
             ¿No tienes cuenta?{" "}
-            <Link href="#" className="text-primary hover:underline">
+            <Link href="/onboarding" className="text-primary hover:underline font-bold">
               Crear cuenta
             </Link>
           </p>
@@ -102,3 +103,5 @@ export default function OnboardingPage() {
     </MobileLayout>
   )
 }
+
+    
