@@ -1,6 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import PageHeader from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { routine } from '@/lib/mock-data';
 import { ChevronRight } from 'lucide-react';
@@ -15,12 +17,14 @@ export default function RoutinePage() {
             <Card className="shadow-lg transition-transform active:scale-95 cursor-pointer">
               <CardContent className="p-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Checkbox 
-                    checked={exercise.completed} 
-                    id={`ex-${exercise.id}`} 
-                    className="h-8 w-8 rounded-full data-[state=checked]:bg-accent"
-                    aria-label={`Mark ${exercise.name} as complete`}
-                  />
+                  <div onClick={(e) => { e.preventDefault() }}>
+                    <Checkbox 
+                      checked={exercise.completed} 
+                      id={`ex-${exercise.id}`} 
+                      className="h-8 w-8 rounded-full data-[state=checked]:bg-accent"
+                      aria-label={`Mark ${exercise.name} as complete`}
+                    />
+                  </div>
                   <div>
                     <p className="font-bold text-lg">{exercise.name}</p>
                     <p className="text-sm text-muted-foreground">
