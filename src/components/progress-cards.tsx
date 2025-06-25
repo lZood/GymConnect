@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -7,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Calendar } from '@/components/ui/calendar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
-import { Lightbulb, Medal, Flame, TrendingUp, Tape, Camera } from 'lucide-react';
+import { Lightbulb, Medal, Flame, TrendingUp, Ruler, Camera } from 'lucide-react';
 import type { DayPicker } from 'react-day-picker';
 
 type PRCalendarCardProps = {
@@ -105,7 +104,7 @@ export function BodyMeasurementsCard({ measurements }: BodyMeasurementsCardProps
     return (
         <Card className="shadow-lg">
              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Tape/> Medidas Corporales</CardTitle>
+                <CardTitle className="flex items-center gap-2"><Ruler/> Medidas Corporales</CardTitle>
                 <CardDescription>Último registro: {new Date().toLocaleDateString('es-ES')}</CardDescription>
             </CardHeader>
             <CardContent>
