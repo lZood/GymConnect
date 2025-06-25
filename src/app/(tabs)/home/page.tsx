@@ -1,13 +1,21 @@
+
+'use client';
+
 import Link from 'next/link';
-import { CheckCircle2, Flame, TrendingUp, Users, Trophy } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { CheckCircle2, Flame, Users, Trophy, Award, Target, History, Dumbbell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import PageHeader from '@/components/page-header';
 import { WeightProgressChart } from '@/components/charts';
 import { user, weightProgress, friends } from '@/lib/mock-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
 
 export default function HomePage() {
+  const router = useRouter();
+  const nextRoutine = user.customRoutines[0];
+
   return (
     <div className="flex flex-col h-full">
       <PageHeader
@@ -21,42 +29,91 @@ export default function HomePage() {
         }
       />
       <div className="flex-1 overflow-y-auto px-4 space-y-4">
-        <Link href="/routine" passHref>
-          <Card className="bg-primary/90 text-primary-foreground shadow-lg transition-transform active:scale-95 cursor-pointer">
+        
+        {user.newPr && (
+          <Card className="shadow-lg bg-gradient-to-r from-yellow-400/20 via-amber-500/20 to-orange-500/20 border-amber-500">
+            <CardHeader className="flex-row items-center gap-4 space-y-0 p-4">
+               <Award className="h-10 w-10 text-amber-500 shrink-0" />
+               <div>
+                  <CardTitle className="text-lg">¡Nuevo Récord!</CardTitle>
+                  <p className="font-semibold text-card-foreground">{user.newPr.exercise}: {user.newPr.value}</p>
+               </div>
+            </CardHeader>
+          </Card>
+        )}
+
+        {nextRoutine && (
+          <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp />
-                Rutina de Hoy
-              </CardTitle>
+              <CardTitle>Próximo Entrenamiento</CardTitle>
+              <CardDescription>{nextRoutine.name}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="font-bold text-2xl">Día de Pecho y Tríceps</p>
-              <p>4 Ejercicios restantes</p>
+                <ul className="space-y-1 text-sm text-muted-foreground mb-4">
+                  {nextRoutine.exercises.slice(0, 2).map((ex, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                       <Dumbbell className="h-4 w-4" />
+                       <span>{ex.name}</span>
+                    </li>
+                  ))}
+                  {nextRoutine.exercises.length > 2 && <li className="pl-6">y más...</li>}
+                </ul>
+               <Button onClick={() => router.push(`/workout/${nextRoutine.id}`)} className="w-full">
+                  ¡Empezar Entrenamiento!
+              </Button>
             </CardContent>
           </Card>
-        </Link>
+        )}
+        
+        <div className="grid grid-cols-2 gap-4">
+            <Card className="shadow-lg">
+                <CardHeader className="p-4">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                        <Target className="text-primary"/>
+                        Meta Semanal
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 pt-0">
+                    <p className="text-center text-3xl font-bold mb-2">{user.weeklyProgress.completed} <span className="text-xl text-muted-foreground">/ {user.weeklyProgress.goal}</span></p>
+                    <Progress value={(user.weeklyProgress.completed / user.weeklyProgress.goal) * 100} />
+                    <p className="text-xs text-center text-muted-foreground mt-1">entrenamientos</p>
+                </CardContent>
+            </Card>
+             <Card className="shadow-lg">
+                <CardHeader className="p-4">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                        <History className="text-accent"/>
+                        Última Sesión
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 pt-0 text-center">
+                    <p className="font-bold">{user.lastWorkoutSummary.duration}</p>
+                    <p className="text-sm">{(user.lastWorkoutSummary.volume / 1000).toFixed(1)}k kg</p>
+                </CardContent>
+            </Card>
+        </div>
         
         <div className="grid grid-cols-2 gap-4">
           <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
+            <CardHeader className="p-4">
+              <CardTitle className="flex items-center gap-2 text-base">
                 <Flame className="text-orange-500" />
                 Tu Racha
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-6xl font-bold">{user.streak}</p>
+            <CardContent className="p-4 pt-0 text-center">
+              <p className="text-5xl font-bold">{user.streak}</p>
               <p className="text-muted-foreground text-sm">días</p>
             </CardContent>
           </Card>
            <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
+            <CardHeader className="p-4">
+              <CardTitle className="flex items-center gap-2 text-base">
                 <Trophy className="text-yellow-400" />
                 GymPoints
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-center">
+            <CardContent className="p-4 pt-0 text-center">
               <p className="text-4xl font-bold">{user.gymPoints.toLocaleString()}</p>
                <p className="text-muted-foreground text-sm">puntos</p>
             </CardContent>
@@ -90,6 +147,11 @@ export default function HomePage() {
             ))}
           </CardContent>
         </Card>
+
+        <Button variant="secondary" onClick={() => router.push('/routine')}>
+            <Dumbbell className="mr-2"/>
+            Ver Todas Mis Rutinas
+        </Button>
 
         <WeightProgressChart data={weightProgress} />
         

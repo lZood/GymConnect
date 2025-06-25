@@ -36,6 +36,19 @@ export const user = {
   },
   streak: 21,
   gymPoints: 11250,
+  weeklyProgress: {
+    goal: 4,
+    completed: 2,
+  },
+  lastWorkoutSummary: {
+    name: 'Lunes de Empuje',
+    duration: '55 min',
+    volume: 12500,
+  },
+  newPr: {
+    exercise: 'Press de Banca',
+    value: '85kg',
+  },
   achievements: [
     { id: 'ach-1', title: '1er Mes', icon: Medal, date: '2024-06-01' },
     { id: 'ach-2', title: '25 Check-ins', icon: Award, date: '2024-06-20' },
