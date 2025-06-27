@@ -42,30 +42,68 @@ export default function LoginPage() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Verificando conexión con Supabase...");
-    const { data, error } = await supabase.auth.signInWithPassword({
+    // Paso 1: Autenticación del Usuario
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     });
 
-    if (error) {
-      console.log("Respuesta de Supabase recibida (esto confirma la conexión).");
-      console.error("Error de Supabase:", error.message);
+    if (authError || !authData.user) {
       toast({
         variant: "destructive",
         title: "Error de autenticación",
-        description: "La conexión con Supabase funciona, pero las credenciales son incorrectas.",
+        description: authError?.message || "Credenciales incorrectas.",
       });
-    } else {
-      console.log("¡Conexión y autenticación con Supabase exitosas!");
-      console.log("Usuario:", data.user);
-      toast({
+      return;
+    }
+
+    const userId = authData.user.id;
+
+    // Paso 2: Verificación de Rol (La Cascada de Permisos)
+
+    // A. ¿Es un Super Administrador?
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('platform_role')
+      .eq('id', userId)
+      .single();
+
+    if (profileError && profileError.code !== 'PGRST116') { // PGRST116: No rows found (which is OK)
+      toast({ variant: "destructive", title: "Error", description: "No se pudo verificar el perfil del usuario." });
+      return; 
+    }
+
+    if (profile?.platform_role === 'superadmin') {
+      toast({ title: "Bienvenido, Super Admin" });
+      router.push('/platform-admin');
+      return;
+    }
+
+    // B. ¿Es un Administrador de Gimnasio?
+    const { data: memberships, error: membershipError } = await supabase
+      .from('gym_memberships')
+      .select('role')
+      .eq('user_id', userId)
+      .in('role', ['owner', 'admin']);
+
+    if (membershipError) {
+      toast({ variant: "destructive", title: "Error", description: "No se pudieron verificar los permisos del gimnasio." });
+      return;
+    }
+
+    if (memberships && memberships.length > 0) {
+      toast({ title: "Bienvenido, Administrador" });
+      router.push('/gym-admin');
+      return;
+    }
+
+    // C. Es un Miembro Regular
+    toast({
         title: "¡Inicio de Sesión Exitoso!",
         description: "Bienvenido de nuevo.",
         className: 'bg-green-500 border-green-500 text-white',
-      });
-      router.push('/home');
-    }
+    });
+    router.push('/home');
   }
 
   return (
