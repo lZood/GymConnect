@@ -1,7 +1,7 @@
-
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import MobileLayout from "@/components/mobile-layout"
+import { supabase } from "@/lib/supabaseClient"
+import { useToast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
   email: z.string().email({
@@ -28,7 +30,9 @@ const formSchema = z.object({
   }),
 })
 
-export default function OnboardingPage() {
+export default function LoginPage() {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,11 +41,31 @@ export default function OnboardingPage() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a real app, you'd handle authentication here.
-    // For now, we'll just log the values.
-    console.log(values)
-    // On successful login, you would redirect. For this demo, the Link acts as navigation.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("Verificando conexión con Supabase...");
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (error) {
+      console.log("Respuesta de Supabase recibida (esto confirma la conexión).");
+      console.error("Error de Supabase:", error.message);
+      toast({
+        variant: "destructive",
+        title: "Error de autenticación",
+        description: "La conexión con Supabase funciona, pero las credenciales son incorrectas.",
+      });
+    } else {
+      console.log("¡Conexión y autenticación con Supabase exitosas!");
+      console.log("Usuario:", data.user);
+      toast({
+        title: "¡Inicio de Sesión Exitoso!",
+        description: "Bienvenido de nuevo.",
+        className: 'bg-green-500 border-green-500 text-white',
+      });
+      router.push('/home');
+    }
   }
 
   return (
@@ -83,8 +107,8 @@ export default function OnboardingPage() {
                 </FormItem>
               )}
             />
-            <Button asChild className="w-full !mt-8 h-12 rounded-full font-bold text-lg">
-                <Link href="/home">Iniciar Sesión</Link>
+            <Button type="submit" className="w-full !mt-8 h-12 rounded-full font-bold text-lg">
+                Iniciar Sesión
             </Button>
           </form>
         </Form>
@@ -103,5 +127,3 @@ export default function OnboardingPage() {
     </MobileLayout>
   )
 }
-
-    
