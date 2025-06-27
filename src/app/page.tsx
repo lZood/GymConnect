@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -54,10 +55,13 @@ export default function LoginPage() {
         title: "Error de autenticación",
         description: authError?.message || "Credenciales incorrectas.",
       });
+      console.error("Login Error:", authError?.message);
       return;
     }
+    
+    const user = authData.user;
+    console.log("Login exitoso. Usuario autenticado:", user);
 
-    const userId = authData.user.id;
 
     // Paso 2: Verificación de Rol (La Cascada de Permisos)
 
@@ -65,15 +69,17 @@ export default function LoginPage() {
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('platform_role')
-      .eq('id', userId)
+      .eq('id', user.id)
       .single();
 
     if (profileError && profileError.code !== 'PGRST116') { // PGRST116: No rows found (which is OK)
       toast({ variant: "destructive", title: "Error", description: "No se pudo verificar el perfil del usuario." });
+      console.error("Error al obtener perfil:", profileError);
       return; 
     }
 
     if (profile?.platform_role === 'superadmin') {
+      console.log(`Rol verificado: Super Administrador (platform_role: ${profile.platform_role}). Redirigiendo a /platform-admin.`);
       toast({ title: "Bienvenido, Super Admin" });
       router.push('/platform-admin');
       return;
@@ -83,21 +89,25 @@ export default function LoginPage() {
     const { data: memberships, error: membershipError } = await supabase
       .from('gym_memberships')
       .select('role')
-      .eq('user_id', userId)
+      .eq('user_id', user.id)
       .in('role', ['owner', 'admin']);
 
     if (membershipError) {
       toast({ variant: "destructive", title: "Error", description: "No se pudieron verificar los permisos del gimnasio." });
+      console.error("Error al verificar membresías de gimnasio:", membershipError);
       return;
     }
 
     if (memberships && memberships.length > 0) {
+      const adminRole = memberships[0].role;
+      console.log(`Rol verificado: Administrador de Gimnasio (gym_memberships.role: ${adminRole}). Redirigiendo a /gym-admin.`);
       toast({ title: "Bienvenido, Administrador" });
       router.push('/gym-admin');
       return;
     }
 
     // C. Es un Miembro Regular
+    console.log("Rol verificado: Usuario Regular. Redirigiendo a /home.");
     toast({
         title: "¡Inicio de Sesión Exitoso!",
         description: "Bienvenido de nuevo.",
