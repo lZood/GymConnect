@@ -66,17 +66,19 @@ export default function LoginPage() {
     // Paso 2: Verificación de Rol (La Cascada de Permisos)
 
     // A. ¿Es un Super Administrador?
+    console.log("Verificando si es Super Admin...");
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('platform_role')
       .eq('id', user.id)
       .single();
 
-    if (profileError && profileError.code !== 'PGRST116') { // PGRST116: No rows found (which is OK)
-      toast({ variant: "destructive", title: "Error", description: "No se pudo verificar el perfil del usuario." });
-      console.error("Error al obtener perfil:", profileError);
-      return; 
+    if (profileError && profileError.code !== 'PGRST116') { // PGRST116: No rows found
+        console.error("Error al consultar la tabla 'profiles':", profileError);
+        toast({ variant: "destructive", title: "Error de Perfil", description: "No se pudo verificar el rol del usuario. Revisa los permisos (RLS) de la tabla 'profiles'." });
+        return;
     }
+    console.log("Respuesta de la tabla 'profiles':", profile);
 
     if (profile?.platform_role === 'superadmin') {
       console.log(`Rol verificado: Super Administrador (platform_role: ${profile.platform_role}). Redirigiendo a /platform-admin.`);
@@ -84,6 +86,7 @@ export default function LoginPage() {
       router.push('/platform-admin');
       return;
     }
+    console.log("El usuario no es Super Admin. Verificando si es Admin de Gimnasio...");
 
     // B. ¿Es un Administrador de Gimnasio?
     const { data: memberships, error: membershipError } = await supabase
@@ -93,10 +96,11 @@ export default function LoginPage() {
       .in('role', ['owner', 'admin']);
 
     if (membershipError) {
-      toast({ variant: "destructive", title: "Error", description: "No se pudieron verificar los permisos del gimnasio." });
-      console.error("Error al verificar membresías de gimnasio:", membershipError);
+      console.error("Error al consultar la tabla 'gym_memberships':", membershipError);
+      toast({ variant: "destructive", title: "Error de Permisos", description: "No se pudieron verificar los permisos de gimnasio. Revisa los permisos (RLS) de la tabla 'gym_memberships'." });
       return;
     }
+    console.log("Respuesta de la tabla 'gym_memberships':", memberships);
 
     if (memberships && memberships.length > 0) {
       const adminRole = memberships[0].role;
@@ -105,6 +109,7 @@ export default function LoginPage() {
       router.push('/gym-admin');
       return;
     }
+    console.log("El usuario no es Admin de Gimnasio.");
 
     // C. Es un Miembro Regular
     console.log("Rol verificado: Usuario Regular. Redirigiendo a /home.");
