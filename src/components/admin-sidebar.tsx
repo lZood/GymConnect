@@ -18,7 +18,7 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-card border-r h-full flex flex-col">
+    <aside className="w-64 flex-shrink-0 bg-card border-r h-full flex-col fixed top-0 left-0 z-40 hidden lg:flex">
       <div className="p-6 border-b flex items-center gap-3">
         <Dumbbell className="h-8 w-8 text-primary" />
         <div>

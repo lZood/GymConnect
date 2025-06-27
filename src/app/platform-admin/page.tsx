@@ -18,9 +18,9 @@ const kpiCards = [
 export default function PlatformAdminPage() {
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold">Dashboard de Super Administrador</h1>
+      <h1 className="text-3xl font-bold">Dashboard</h1>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         {kpiCards.map((card, index) => {
           const Icon = card.icon;
           return (
@@ -38,7 +38,7 @@ export default function PlatformAdminPage() {
         })}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Crecimiento de Gimnasios</CardTitle>
@@ -47,8 +47,8 @@ export default function PlatformAdminPage() {
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={gymGrowthData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
+                <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis fontSize={12} tickLine={false} axisLine={false} />
                 <Tooltip />
                 <Line type="monotone" dataKey="count" stroke="hsl(var(--primary))" strokeWidth={2} />
               </LineChart>
@@ -63,8 +63,8 @@ export default function PlatformAdminPage() {
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={userGrowthData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
+                <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis fontSize={12} tickLine={false} axisLine={false} />
                 <Tooltip />
                 <Line type="monotone" dataKey="count" stroke="hsl(var(--accent))" strokeWidth={2} />
               </LineChart>
@@ -82,8 +82,8 @@ export default function PlatformAdminPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Nombre del Gimnasio</TableHead>
-                <TableHead>Plan</TableHead>
-                <TableHead>Fecha de Registro</TableHead>
+                <TableHead className="hidden sm:table-cell">Plan</TableHead>
+                <TableHead className="hidden md:table-cell">Fecha de Registro</TableHead>
                 <TableHead>Miembros</TableHead>
               </TableRow>
             </TableHeader>
@@ -91,10 +91,10 @@ export default function PlatformAdminPage() {
               {recentGyms.map((gym) => (
                 <TableRow key={gym.id}>
                   <TableCell className="font-medium">{gym.name}</TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">
                     <Badge variant={gym.plan === 'Pro' ? 'default' : 'secondary'}>{gym.plan}</Badge>
                   </TableCell>
-                  <TableCell>{gym.registeredDate}</TableCell>
+                  <TableCell className="hidden md:table-cell">{gym.registeredDate}</TableCell>
                   <TableCell>{gym.memberCount}</TableCell>
                 </TableRow>
               ))}

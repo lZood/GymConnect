@@ -1,4 +1,5 @@
 
+import AdminBottomNav from "@/components/admin-bottom-nav";
 import AdminSidebar from "@/components/admin-sidebar";
 
 export default function PlatformAdminLayout({
@@ -7,11 +8,12 @@ export default function PlatformAdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-full bg-background flex">
+    <div className="w-full min-h-screen bg-background">
       <AdminSidebar />
-      <main className="flex-1 h-full overflow-y-auto p-8">
+      <main className="lg:ml-64 p-4 md:p-6 pb-24 lg:pb-6">
         {children}
       </main>
+      <AdminBottomNav />
     </div>
   );
 }
