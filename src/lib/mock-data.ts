@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 import { Flame, TrendingUp, Zap, Medal, Award, ShieldCheck, Dumbbell, Calendar, HeartPulse } from 'lucide-react';
 
@@ -301,4 +302,39 @@ export const latestMeasurements = {
         biceps: 38,
         muslo: 60,
     }
-}
+};
+
+
+// MOCK DATA FOR SUPER ADMIN DASHBOARD
+export const adminDashboardStats = {
+    mrr: 4550,
+    activeGyms: 35,
+    newGymsThisMonth: 3,
+    totalUsers: 7850,
+    activeUsers: 4200,
+};
+
+export const gymGrowthData = [
+  { month: 'Ene', count: 12 },
+  { month: 'Feb', count: 15 },
+  { month: 'Mar', count: 20 },
+  { month: 'Abr', count: 26 },
+  { month: 'May', count: 32 },
+  { month: 'Jun', count: 35 },
+];
+
+export const userGrowthData = [
+  { month: 'Ene', count: 2100 },
+  { month: 'Feb', count: 2800 },
+  { month: 'Mar', count: 3500 },
+  { month: 'Abr', count: 4800 },
+  { month: 'May', count: 6200 },
+  { month: 'Jun', count: 7850 },
+];
+
+export const recentGyms = [
+    { id: 'gym-1', name: 'Powerhouse Gym', plan: 'Pro', registeredDate: '2024-06-22', memberCount: 350 },
+    { id: 'gym-2', name: 'FitZone', plan: 'Básico', registeredDate: '2024-06-18', memberCount: 85 },
+    { id: 'gym-3', name: 'Iron Temple', plan: 'Pro', registeredDate: '2024-06-15', memberCount: 520 },
+    { id: 'gym-4', name: 'Cardio Kings', plan: 'Básico', registeredDate: '2024-06-05', memberCount: 120 },
+];
